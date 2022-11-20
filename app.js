@@ -7,7 +7,8 @@ const { findByIdAndDelete } = require('./models/campground');
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
-const {campgroundSchema} = require('./schemas');
+const {campgroundSchema, reviewSchema} = require('./schemas');
+const Review = require('./models/review');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
 
@@ -55,6 +56,17 @@ const validateCampground = (req, res, next) => {
     }
 }
 
+const validateReview = (req, res, next) => {
+    const {error} = reviewSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
+
 app.get('/', (req, res) => {
     res.render('home')
 })
@@ -79,7 +91,7 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) =
 
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
-    const camp = await Campground.findById(id);
+    const camp = await Campground.findById(id).populate('reviews');
     res.render('campgrounds/show', { camp });
 }))
 
@@ -87,6 +99,23 @@ app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const { id } = req.params;
     const camp = await Campground.findById(id);
     res.render('campgrounds/edit', { camp });
+}))
+
+app.post('/campgrounds/:id/review', validateReview, catchAsync(async (req, res)=>{
+    const {id} = req.params;
+    const campground = await Campground.findById(id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await campground.save();
+    await review.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+}))
+
+app.delete('/campgrounds/:id/review/:reviewId', catchAsync(async(req, res) => {
+    const {id, reviewId} = req.params;
+    await Campground.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/campgrounds/${id}`);
 }))
 
 app.get('/makecampground', catchAsync(async (req, res) => {
@@ -116,7 +145,6 @@ app.use((err, req, res, next) => {
         err.message = "Something went wrong!";
     }
     res.status(statusCode).render('error', { err });
-    console.log("something went wrong!!")
 })
 
 app.listen('3000', () => {

@@ -2,30 +2,35 @@
     <div class="row justify-content-center">
         <h1 class="text-center">New Campground</h1>
         <div class="col-6">
-            <form action="/campgrounds" method="post" novalidate class="needs-validation">
+            <form action="/campgrounds" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label class="form-label" for="title">TITLE</label>
+                    <label class="form-label" for="title">Title</label>
                     <input class="form-control" type="text" id="title" placeholder="title" name="campground[title]" required>
                     <div class="valid-feedback">
                         Looks good!
                       </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="location">LOCATION</label>
+                    <label class="form-label" for="location">Location</label>
                     <input class="form-control" type="text" id="location" placeholder="location"
                         name="campground[location]" required>
                         <div class="invalid-feedback">
                             Please provide a valid location.
                           </div>
                 </div>
+                <!-- <input type="file" name="image" id="" multiple> -->
                 <div class="mb-3">
+                    <label for="images" class="form-label">Upload Images</label>
+                    <input class="form-control" type="file" id="images" name="image" multiple>
+                  </div>
+                <!-- <div class="mb-3">
                     <label class="form-label" for="Image Url">Image Url</label>
                     <input class="form-control" type="text" id="Image Url" placeholder="Image Url"
                         name="campground[image]" required>
                         <div class="valid-feedback">
                             Looks good!
                           </div>
-                </div>
+                </div> -->
                 <div class="mb-3">
                     <label class="form-label" for="Price">Price</label>
                     <div class="input-group mb-3" id="Price">

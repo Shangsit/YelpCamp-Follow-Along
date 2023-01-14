@@ -28,7 +28,7 @@ const reviewroutes = require('./routes/reviews');
 
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
-const dbUrl = 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL;
 
 const MongoStore = require('connect-mongo'); //i am using the new version of connect-mongo v4 
 

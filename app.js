@@ -33,10 +33,10 @@ const MongoStore = require('connect-mongo'); //i am using the new version of con
 mongoose.connect(dbUrl, {
 
     // I do not know why the following lines are giving error??
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
+    // useNewUrlParser: true,
+    // useCreateIndex: true,
+    // useUnifiedTopology: true,
+    // useFindAndModify: false
 });
 
 const db = mongoose.connection;

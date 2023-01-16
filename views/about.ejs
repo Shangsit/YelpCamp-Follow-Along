@@ -1,3 +1,97 @@
 <% layout('layouts/boilerplate') -%>
-<h1>About this Website</h1>
-<p>This website is a part of the "Web Developer Bootcamp" course by Colt Steele. It is created as a part of learning. I Shangsit Nath, have fixed some bugs which have arised because of new versions of some packages.</p>
+    <h1>About This Website</h1>
+    <p>This website is a part of the "Web Developer Bootcamp" course by Colt Steele. It is created as a part of
+        learning. I Shangsit Nath, have fixed some bugs which have arised because of new versions of some packages.
+        All the images and information related to camping sites are taken from <a
+            href="https://www.tourism-of-india.com/blog/best-camping-sites-in-india/">10 Best Camping Sites In India
+            Where You Can Connect With Nature</a> and <a href="https://curlytales.com/best-camping-spots-in-india/">10
+            Best Camping Spots In India</a> This app is called YelpCamp and it has full CRUD functionality. Also, it has
+        authentication and authorization support. The app also displays maps for the locations of the various camping
+        sites with the help of mapbox.
+        <br>
+        <h2 class="mt-5">List Of Technologies</h2>
+    <ol>
+        <li>HTML, CSS, Javascript</li>
+        <li>Express</li>
+        <li>MongoDB</li>
+    </ol>
+    <div class="card mb-3 mt-5">
+        <div class="card-body">
+            <h4 class="card-title">Styling</h3>
+                Bootstrap is used for styling. It is a free, open source front-end development framework for the
+                creation of websites and web apps.
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">Creating The Server</h3>
+                Express is used to create the server of the app. Express is a node js web application framework that
+                provides
+                features for building web and mobile applications. It's a layer built on the top of the Node js that
+                helps
+                manage servers and routes. It is used here to create the RESTful routes.
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">Database</h3>
+                MongoDB Atlas is used for database. It is a fully-managed cloud database. Initially while developing
+                MongoDB was
+                used locally, then at the time of deploying MongoDB Atlas is used.
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">Map Functionality</h3>
+                The maps are displayed with the help of mapbox Geocoding API. Here we use forward geocoding where we
+                give the
+                name of the location and the API gives us the coordinates. We can use it directly but here we are using
+                it via
+                <strong>@mapbox/mapbox-sdk</strong> package for simplicity. This package returns the data in form of
+                GeoJSON.
+                Then we store it in GeoJSON format.
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">Cloudinary</h3>
+                Cloudinary is used for storing the images, when a new campground is created.
+
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">Authentication And Authorization</h3>
+                Passport is used for authentication and authorization. It stores the passwords by salting and hashing.
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">Deploying</h3>
+                Render is used for deploying. In the course, Heroku was used, but since Heroku is now having only paid
+                services,
+                so I used Render, which provides free deploying services.
+        </div>
+    </div>
+
+    <h2 class="mt-5">List Of Packages</h2>
+    <ol>
+        <li>EJS Mate</li>
+        <li>Connect Flash</li>
+        <li>Express Session</li>
+        <li>Mapbox</li>
+        <li>Method-Override</li>
+        <li>Dotenv</li>
+        <li>Cloudinary</li>
+        <li>Path</li>
+        <li>JOI</li>
+        <li>Passport</li>
+        <li>Multer</li>
+        <li>Sanitize HTML</li>
+        <li>Mongo Sanitize</li>
+        <li>Connect Mongo</li>
+        <li>Passport local</li>
+    </ol>
+    
+
+    </p>

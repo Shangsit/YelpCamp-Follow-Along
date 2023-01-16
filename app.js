@@ -1,9 +1,7 @@
 if(process.env.NODE_ENV !== "production"){
     require('dotenv').config();
 } 
-    // require('dotenv').config();
-
-    
+ 
 
 const express = require('express');
 const path = require('path');
@@ -28,16 +26,17 @@ const reviewroutes = require('./routes/reviews');
 
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
 const MongoStore = require('connect-mongo'); //i am using the new version of connect-mongo v4 
 
 mongoose.connect(dbUrl, {
 
     // I do not know why the following lines are giving error??
-    // useNewUrlParser: true,
-    // useCreateIndex: true,
-    // useUnifiedTopology: true
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 const db = mongoose.connection;
@@ -46,7 +45,7 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
-const app = express()
+const app = express();
 
 app.engine('ejs', ejsMate);
 
@@ -59,11 +58,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret';
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'thisshouldbeabettersecret'
+        secret
     }
 });
 
@@ -74,7 +75,7 @@ store.on("error", function(e){
 const sessionconfig = {
     store,
     name: 'session',
-    secret: 'thisshouldbeabettersecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
